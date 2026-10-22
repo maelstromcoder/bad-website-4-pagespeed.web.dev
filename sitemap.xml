@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- D-S8: this sitemap says "please index these pages" while every page says "noindex",
+     and it lists /members, which robots.txt blocks. Mixed signals, on purpose.
+     D-S9: <loc> must be a full URL (https://...). These paths are invalid. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>/home</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>/menu</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>/secret-recipes</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>/members</loc><lastmod>2026-10-22</lastmod></url>
+</urlset>

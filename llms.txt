@@ -1,0 +1,22 @@
+# Boulangerie Imaginaire (fictional demo site)
+
+> A FICTIONAL sourdough bakery, built on purpose to score as badly as possible on Google PageSpeed Insights,
+> for a class on web performance, SEO and GEO (AI search). The bakery, address, phone and people do not exist.
+> Source: https://github.com/maelstromcoder/bad-website-4-pagespeed.web.dev
+
+## Pages you may read
+
+- [Home](/home): the bakery, its four breads, and a newsletter form.
+- [Menu](/menu): the four breads with descriptions.
+
+## What you will NOT be able to read (on purpose)
+
+- Opening hours and two prices exist only inside a picture (/assets/img/hours-board.png) with no alt text.
+- Today's specials and all menu prices are written in by JavaScript after the page loads.
+- /secret-recipes is blocked for AI crawlers in robots.txt.
+- /members is blocked for every crawler in robots.txt.
+
+## Optional
+
+- [robots.txt](/robots.txt)
+- [sitemap.xml](/sitemap.xml)

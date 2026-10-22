@@ -1,0 +1,28 @@
+# robots.txt for a FICTIONAL demo bakery (a lesson site, broken on purpose).
+# A crawler obeys ONE group: the group that names it, or "*" if none does.
+# That is why the AI group below repeats /members: it does not inherit the "*" rules.
+
+User-agent: *
+Disallow: /members
+# D-S7: a typo. Crawlers silently skip a line they don't understand, so /drafts is NOT blocked.
+Disalow: /drafts
+
+# AI crawlers (training, search and "read this page for me" fetchers):
+# welcome on the bakery pages, but not on the secret recipes.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Disallow: /secret-recipes
+Disallow: /optimized
+Disallow: /members
+
+# D-S9: the Sitemap line must be a full URL (https://...). A path like this one is invalid.
+Sitemap: /sitemap.xml

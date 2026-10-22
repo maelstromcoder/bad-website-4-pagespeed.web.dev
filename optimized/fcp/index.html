@@ -1,0 +1,68 @@
+<!--
+  FIXED version of /home: fcp. Fixed here: fcp. Everything else is still broken on purpose.
+  Compare it with the bad page at /home.
+-->
+<html data-fixed="fcp">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://example.com/bakery">
+  <link rel="canonical" href="https://example.org/boulangerie">
+  <link rel="alternate" hreflang="xx-banana" href="/home">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <style>
+    body { font-family: Georgia, "Times New Roman", serif; margin: 0 auto; max-width: 980px; padding: 12px; color: #2b2b2b; }
+    .notice { background: #fff4c2; color: #3d3200; padding: 8px 12px; font-family: Arial, sans-serif; font-size: 14px; }
+    .banner { background: #c0392b; color: #fff; padding: 90px 12px; font-size: 22px; text-align: center; }
+    .lede { font-size: 18px; line-height: 1.5; }
+    .hero { width: 100%; height: auto; }
+    .breads { display: flex; flex-wrap: wrap; gap: 12px; }
+    .bread img { width: 220px; height: 140px; }
+    .board { width: 100%; max-width: 600px; height: auto; }
+    .faint { color: #c4c4c4; }
+    .icon { display: inline-block; width: 16px; height: 16px; background: #2b2b2b; }
+    #crumbs i { display: inline-block; width: 1px; height: 1px; }
+    h1 { font-size: 40px; margin: 16px 0 8px; } h2, h3, h4 { font-size: 22px; margin: 28px 0 8px; } h5 { font-size: 18px; margin: 6px 0 2px; }
+    a { color: #2b2b2b; }
+  </style>
+  <script src="/optimized/assets/app.js" defer></script>
+</head>
+<body>
+  <p class="notice">Fictional demo site for a web performance class. This bakery does not exist: do not visit, call or order.</p>
+
+  <h1>Boulangerie Imaginaire</h1>
+  <p class="lede">A small sourdough bakery in a made-up corner of Montr&eacute;al. Every loaf starts from a
+    12-year-old sourdough starter named Gaston. We bake from 5 a.m. and sell out most days by noon.</p>
+
+  <div id="specials"></div>
+
+  <img class="hero" src="/assets/img/hero.png" loading="lazy">
+
+  <h4>Our breads</h4>
+  <div class="breads">
+    <div class="bread"><img src="/assets/img/bread-1.png"><h5>Levain Classique</h5><p class="faint">Country sourdough, 48-hour ferment, crackly dark crust.</p></div>
+    <div class="bread"><img src="/assets/img/bread-2.png"><h5>Croissant au beurre</h5><p class="faint">Laminated with cultured butter, 27 layers, baked twice a morning.</p></div>
+    <div class="bread"><img src="/assets/img/bread-3.png"><h5>Pain aux graines</h5><p class="faint">Seeded rye with flax, sunflower and pumpkin seeds.</p></div>
+    <div class="bread"><img src="/assets/img/bread-4.png"><h5>Baguette tradition</h5><p class="faint">Out of the oven every two hours from 7 a.m.</p></div>
+  </div>
+
+  <h4>Opening hours and prices</h4>
+  <img class="board" src="/assets/img/hours-board.png">
+
+  <h4>More</h4>
+  <p><a href="javascript:void(0)" onclick="location.href='/menu'">Full menu</a> &middot; <a href="/secret-recipes">click here</a> for our recipes &middot; <a href="/members" tabindex="5">Members</a></p>
+
+  <h4>Newsletter</h4>
+  <form onsubmit="return false">
+    <input type="email" onpaste="return false" placeholder="email">
+    <button type="submit"><span class="icon"></span></button>
+  </form>
+
+  <footer class="faint">
+    Boulangerie Imaginaire (fictional) &middot; 123 Rue Imaginaire, Montr&eacute;al &middot;
+    514-555-0142 &middot; hello@example.com
+  </footer>
+  <div id="crumbs" aria-hidden="true"></div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<!--
+  FIXED version of /home: best-practices. Fixed here: bp. Everything else is still broken on purpose.
+  Compare it with the bad page at /home.
+-->
+<html data-fixed="bp">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://example.com/bakery">
+  <link rel="canonical" href="https://example.org/boulangerie">
+  <link rel="alternate" hreflang="xx-banana" href="/home">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/vendor.js"></script>
+  <script src="/optimized/assets/app.js"></script>
+  <link rel="icon" href="/optimized/assets/favicon.svg" type="image/svg+xml">
+  <style>.bread img { height: auto; object-fit: cover; }</style>
+</head>
+<body>
+  <p class="notice">Fictional demo site for a web performance class. This bakery does not exist: do not visit, call or order.</p>
+
+  <h1>Boulangerie Imaginaire</h1>
+  <p class="lede">A small sourdough bakery in a made-up corner of Montr&eacute;al. Every loaf starts from a
+    12-year-old sourdough starter named Gaston. We bake from 5 a.m. and sell out most days by noon.</p>
+
+  <div id="specials"></div>
+
+  <img class="hero" src="/assets/img/hero.png" loading="lazy">
+
+  <h4>Our breads</h4>
+  <div class="breads">
+    <div class="bread"><img src="/assets/img/bread-1.png"><h5>Levain Classique</h5><p class="faint">Country sourdough, 48-hour ferment, crackly dark crust.</p></div>
+    <div class="bread"><img src="/assets/img/bread-2.png"><h5>Croissant au beurre</h5><p class="faint">Laminated with cultured butter, 27 layers, baked twice a morning.</p></div>
+    <div class="bread"><img src="/assets/img/bread-3.png"><h5>Pain aux graines</h5><p class="faint">Seeded rye with flax, sunflower and pumpkin seeds.</p></div>
+    <div class="bread"><img src="/assets/img/bread-4.png"><h5>Baguette tradition</h5><p class="faint">Out of the oven every two hours from 7 a.m.</p></div>
+  </div>
+
+  <h4>Opening hours and prices</h4>
+  <img class="board" src="/assets/img/hours-board.png">
+
+  <h4>More</h4>
+  <p><a href="javascript:void(0)" onclick="location.href='/menu'">Full menu</a> &middot; <a href="/secret-recipes">click here</a> for our recipes &middot; <a href="/members" tabindex="5">Members</a></p>
+
+  <h4>Newsletter</h4>
+  <form onsubmit="return false">
+    <input type="email" name="email" placeholder="email">
+    <button type="submit"><span class="icon"></span></button>
+  </form>
+
+  <footer class="faint">
+    Boulangerie Imaginaire (fictional) &middot; 123 Rue Imaginaire, Montr&eacute;al &middot;
+    514-555-0142 &middot; hello@example.com
+  </footer>
+  <div id="crumbs" aria-hidden="true"></div>
+</body>
+</html>

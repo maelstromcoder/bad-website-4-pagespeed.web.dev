@@ -1,0 +1,19 @@
+/* BROKEN ON PURPOSE (D-P2): this file waits for theme.css, which waits for unused.css.
+   The browser can't paint anything until all three have arrived, one after the other. */
+@import url("theme.css");
+
+body { font-family: Georgia, "Times New Roman", serif; margin: 0 auto; max-width: 980px; padding: 12px; color: #2b2b2b; }
+.notice { background: #fff4c2; color: #3d3200; padding: 8px 12px; font-family: Arial, sans-serif; font-size: 14px; }
+.banner { background: #c0392b; color: #fff; padding: 90px 12px; font-size: 22px; text-align: center; }
+.lede { font-size: 18px; line-height: 1.5; }
+/* D-C1: width but no height, and the <img> has no width/height attributes either */
+.hero { width: 100%; }
+.breads { display: flex; flex-wrap: wrap; gap: 12px; }
+/* D-B6: square photos forced into a 220 x 140 box, so they look squashed */
+.bread img { width: 220px; height: 140px; }
+.board { width: 100%; max-width: 600px; }
+/* D-A6: light grey on white fails the contrast check */
+.faint { color: #c4c4c4; }
+.icon { display: inline-block; width: 16px; height: 16px; background: #2b2b2b; }
+.menu td { padding: 6px 10px; }
+#crumbs i { display: inline-block; width: 1px; height: 1px; }
