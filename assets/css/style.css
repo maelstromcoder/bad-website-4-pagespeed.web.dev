@@ -1,19 +1,89 @@
-/* BROKEN ON PURPOSE (D-P2): this file waits for theme.css, which waits for unused.css.
-   The browser can't paint anything until all three have arrived, one after the other. */
+/* BROKEN ON PURPOSE (D-P2): this file waits for theme.css, which waits for fonts.css (22 font files) and
+   unused.css (250 KB of rules nothing uses). Nothing can be painted until the whole chain has arrived. */
 @import url("theme.css");
 
-body { font-family: Georgia, "Times New Roman", serif; margin: 0 auto; max-width: 980px; padding: 12px; color: #2b2b2b; }
-.notice { background: #fff4c2; color: #3d3200; padding: 8px 12px; font-family: Arial, sans-serif; font-size: 14px; }
-.banner { background: #c0392b; color: #fff; padding: 90px 12px; font-size: 22px; text-align: center; }
-.lede { font-size: 18px; line-height: 1.5; }
-/* D-C1: width but no height, and the <img> has no width/height attributes either */
-.hero { width: 100%; }
-.breads { display: flex; flex-wrap: wrap; gap: 12px; }
-/* D-B6: square photos forced into a 220 x 140 box, so they look squashed */
-.bread img { width: 220px; height: 140px; }
-.board { width: 100%; max-width: 600px; }
-/* D-A6: light grey on white fails the contrast check */
-.faint { color: #c4c4c4; }
-.icon { display: inline-block; width: 16px; height: 16px; background: #2b2b2b; }
-.menu td { padding: 6px 10px; }
+:root {
+  --proof: #fbf7f1; --ink: #2a211c; --crust: #b4652a; --crust-deep: #8c4a1c; --night: #1e1814;
+  --cream: #f3e9da; --line: #e8ddcd; --sage: #74806a; --faint: #cdbfae;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--proof); color: var(--ink); font: 17px/1.6 var(--body); }
+a { color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+.notice { margin: 0; padding: 8px 20px; background: var(--night); color: var(--cream); font-size: 13px; letter-spacing: 0.02em; text-align: center; }
+/* D-C2: tall banners that app.js pushes in above content already on screen */
+.banner { padding: 40px 20px; background: linear-gradient(100deg, var(--crust-deep), var(--crust)); color: #fff7ec;
+  font: italic 400 30px/1.2 var(--display); text-align: center; }
+.banner span { font: 400 15px var(--body); opacity: 0.8; }
+
+.site { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px max(20px, 5vw); border-bottom: 1px solid var(--line); }
+.wordmark { margin: 0; font: 600 24px var(--display); letter-spacing: -0.01em; }
+.wordmark em { font-weight: 400; color: var(--crust); }
+.site nav { display: flex; gap: 24px; font-size: 15px; }
+.site nav a { text-decoration: none; border-bottom: 1px solid transparent; }
+.site nav a:hover { border-color: var(--crust); }
+
+.hero { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: center; padding: 64px max(20px, 5vw) 48px; }
+.eyebrow { margin: 0 0 14px; color: var(--sage); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; }
+h1 { margin: 0; font: 600 clamp(42px, 6vw, 76px)/1.02 var(--display); letter-spacing: -0.02em; text-wrap: balance; }
+.tagline { margin: 10px 0 18px; font: italic 400 clamp(22px, 2.6vw, 30px) var(--display); color: var(--crust); }
+.lede { margin: 0 0 28px; max-width: 34em; font-size: 18px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.btn { display: inline-block; padding: 13px 22px; border-radius: 999px; background: var(--ink); color: var(--proof); text-decoration: none; font-weight: 600; font-size: 15px; }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+/* D-C1: width but no height, and the <img> has no width/height either: the page jumps when it arrives */
+.hero-img { width: 100%; border-radius: 28px; box-shadow: 0 30px 60px -30px rgba(30, 24, 20, 0.55); }
+
+.specials { margin: 0 max(20px, 5vw); padding: 0 24px; border-radius: 18px; background: var(--cream); }
+.specials:not(:empty) { padding: 18px 24px; }
+.specials-title { margin: 0 0 4px; font: 600 14px var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--crust-deep); }
+.specials p { margin: 0; font: italic 400 20px var(--display); }
+
+.breads-section, .visit, .newsletter { padding: 72px max(20px, 5vw) 24px; }
+.section-title { margin: 0 0 8px; font: 600 clamp(30px, 3.6vw, 44px)/1.1 var(--display); letter-spacing: -0.015em; }
+.section-sub { margin: 0 0 32px; font-size: 17px; }
+.breads { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.bread { margin: 0; }
+/* D-B6: square photos forced into a wider box, so the loaves look slightly squashed */
+.bread img { width: 100%; aspect-ratio: 1.18; border-radius: 18px; }
+.bread-name { margin: 16px 0 4px; font: 600 21px var(--display); }
+.bread p { margin: 0; font-size: 15px; }
+/* D-A6: elegant, and too faint to read: light beige on cream fails the contrast check */
+.faint { color: var(--faint); }
+
+.visit { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+.board { width: 100%; border-radius: 16px; box-shadow: 0 24px 50px -28px rgba(30, 24, 20, 0.6); }
+.board-table { width: 100%; border-collapse: collapse; background: #242e2a; color: #ece6d8; border-radius: 16px; overflow: hidden;
+  font: italic 400 19px var(--display); box-shadow: 0 24px 50px -28px rgba(30, 24, 20, 0.6); }
+.board-table th, .board-table td { padding: 14px 24px; text-align: left; border-bottom: 1px solid rgba(236, 230, 216, 0.12); }
+.board-table th { font-weight: 400; }
+.board-table td { color: #f2c46d; }
+.visit-text p { margin: 0 0 16px; }
+.address { font-size: 15px; color: var(--sage); }
+
+.newsletter { margin: 56px max(20px, 5vw) 0; padding: 48px; border-radius: 28px; background: var(--night); color: var(--cream); text-align: center; }
+.newsletter form { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+.newsletter input { width: min(360px, 100%); padding: 14px 18px; border-radius: 999px; border: 1px solid #4a3d33; background: #2a221d; color: var(--cream); font: inherit; }
+.newsletter button { width: 50px; border-radius: 999px; border: 0; background: var(--crust); cursor: pointer; }
+.icon { display: inline-block; width: 14px; height: 14px; border-top: 2px solid #fff; border-right: 2px solid #fff; transform: rotate(45deg); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+.site-footer { margin-top: 72px; padding: 40px max(20px, 5vw); background: var(--night); color: #a8998a; font-size: 14px; }
+.site-footer .wordmark { color: var(--cream); margin-bottom: 8px; }
+
+.menu-table { width: 100%; border-collapse: collapse; font-size: 17px; }
+.menu-table td { padding: 16px 8px; border-bottom: 1px solid var(--line); }
+.menu-table td:first-child { font: 600 20px var(--display); }
+.menu-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.page { padding: 56px max(20px, 5vw); max-width: 980px; }
 #crumbs i { display: inline-block; width: 1px; height: 1px; }
+
+@media (max-width: 900px) {
+  .hero, .visit { grid-template-columns: 1fr; gap: 32px; }
+  .breads { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site nav { gap: 14px; }
+  .newsletter { padding: 36px 20px; }
+}

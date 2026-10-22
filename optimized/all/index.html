@@ -9,26 +9,90 @@
   <title>Boulangerie Imaginaire - sourdough bakery (fictional demo)</title>
   <meta name="description" content="Boulangerie Imaginaire is a fictional sourdough bakery used to teach PageSpeed, SEO and GEO. Four breads, opening hours and prices.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" href="/optimized/assets/fonts/fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/optimized/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    body { font-family: Georgia, "Times New Roman", serif; margin: 0 auto; max-width: 980px; padding: 12px; color: #2b2b2b; }
-    .notice { background: #fff4c2; color: #3d3200; padding: 8px 12px; font-family: Arial, sans-serif; font-size: 14px; }
-    .banner { background: #c0392b; color: #fff; padding: 90px 12px; font-size: 22px; text-align: center; }
-    .lede { font-size: 18px; line-height: 1.5; }
-    .hero { width: 100%; height: auto; }
-    .breads { display: flex; flex-wrap: wrap; gap: 12px; }
-    .bread img { width: 220px; height: 140px; }
-    .board { width: 100%; max-width: 600px; height: auto; }
-    .faint { color: #c4c4c4; }
-    .icon { display: inline-block; width: 16px; height: 16px; background: #2b2b2b; }
+    @font-face{font-family:"Fraunces";src:url("/optimized/assets/fonts/fraunces-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+    @font-face{font-family:"Fraunces";src:url("/optimized/assets/fonts/fraunces-400-italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+    @font-face{font-family:"Instrument Sans";src:url("/optimized/assets/fonts/instrument-sans.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+    :root {
+      --proof: #fbf7f1; --ink: #2a211c; --crust: #b4652a; --crust-deep: #8c4a1c; --night: #1e1814;
+      --cream: #f3e9da; --line: #e8ddcd; --sage: #74806a; --faint: #cdbfae;
+      --display: "Fraunces", Georgia, "Times New Roman", serif;
+      --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--proof); color: var(--ink); font: 17px/1.6 var(--body); }
+    a { color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    .notice { margin: 0; padding: 8px 20px; background: var(--night); color: var(--cream); font-size: 13px; letter-spacing: 0.02em; text-align: center; }
+    .banner { padding: 40px 20px; background: linear-gradient(100deg, var(--crust-deep), var(--crust)); color: #fff7ec;
+      font: italic 400 30px/1.2 var(--display); text-align: center; }
+    .banner span { font: 400 15px var(--body); opacity: 0.8; }
+    .site { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px max(20px, 5vw); border-bottom: 1px solid var(--line); }
+    .wordmark { margin: 0; font: 600 24px var(--display); letter-spacing: -0.01em; }
+    .wordmark em { font-weight: 400; color: var(--crust); }
+    .site nav { display: flex; gap: 24px; font-size: 15px; }
+    .site nav a { text-decoration: none; border-bottom: 1px solid transparent; }
+    .site nav a:hover { border-color: var(--crust); }
+    .hero { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: center; padding: 64px max(20px, 5vw) 48px; }
+    .eyebrow { margin: 0 0 14px; color: var(--sage); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; }
+    h1 { margin: 0; font: 600 clamp(42px, 6vw, 76px)/1.02 var(--display); letter-spacing: -0.02em; text-wrap: balance; }
+    .tagline { margin: 10px 0 18px; font: italic 400 clamp(22px, 2.6vw, 30px) var(--display); color: var(--crust); }
+    .lede { margin: 0 0 28px; max-width: 34em; font-size: 18px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+    .btn { display: inline-block; padding: 13px 22px; border-radius: 999px; background: var(--ink); color: var(--proof); text-decoration: none; font-weight: 600; font-size: 15px; }
+    .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+    .hero-img { width: 100%; border-radius: 28px; box-shadow: 0 30px 60px -30px rgba(30, 24, 20, 0.55); }
+    .specials { margin: 0 max(20px, 5vw); padding: 0 24px; border-radius: 18px; background: var(--cream); }
+    .specials:not(:empty) { padding: 18px 24px; }
+    .specials-title { margin: 0 0 4px; font: 600 14px var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--crust-deep); }
+    .specials p { margin: 0; font: italic 400 20px var(--display); }
+    .breads-section, .visit, .newsletter { padding: 72px max(20px, 5vw) 24px; }
+    .section-title { margin: 0 0 8px; font: 600 clamp(30px, 3.6vw, 44px)/1.1 var(--display); letter-spacing: -0.015em; }
+    .section-sub { margin: 0 0 32px; font-size: 17px; }
+    .breads { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+    .bread { margin: 0; }
+    .bread img { width: 100%; aspect-ratio: 1.18; border-radius: 18px; }
+    .bread-name { margin: 16px 0 4px; font: 600 21px var(--display); }
+    .bread p { margin: 0; font-size: 15px; }
+    .faint { color: var(--faint); }
+    .visit { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+    .board { width: 100%; border-radius: 16px; box-shadow: 0 24px 50px -28px rgba(30, 24, 20, 0.6); }
+    .board-table { width: 100%; border-collapse: collapse; background: #242e2a; color: #ece6d8; border-radius: 16px; overflow: hidden;
+      font: italic 400 19px var(--display); box-shadow: 0 24px 50px -28px rgba(30, 24, 20, 0.6); }
+    .board-table th, .board-table td { padding: 14px 24px; text-align: left; border-bottom: 1px solid rgba(236, 230, 216, 0.12); }
+    .board-table th { font-weight: 400; }
+    .board-table td { color: #f2c46d; }
+    .visit-text p { margin: 0 0 16px; }
+    .address { font-size: 15px; color: var(--sage); }
+    .newsletter { margin: 56px max(20px, 5vw) 0; padding: 48px; border-radius: 28px; background: var(--night); color: var(--cream); text-align: center; }
+    .newsletter form { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+    .newsletter input { width: min(360px, 100%); padding: 14px 18px; border-radius: 999px; border: 1px solid #4a3d33; background: #2a221d; color: var(--cream); font: inherit; }
+    .newsletter button { width: 50px; border-radius: 999px; border: 0; background: var(--crust); cursor: pointer; }
+    .icon { display: inline-block; width: 14px; height: 14px; border-top: 2px solid #fff; border-right: 2px solid #fff; transform: rotate(45deg); }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .site-footer { margin-top: 72px; padding: 40px max(20px, 5vw); background: var(--night); color: #a8998a; font-size: 14px; }
+    .site-footer .wordmark { color: var(--cream); margin-bottom: 8px; }
+    .menu-table { width: 100%; border-collapse: collapse; font-size: 17px; }
+    .menu-table td { padding: 16px 8px; border-bottom: 1px solid var(--line); }
+    .menu-table td:first-child { font: 600 20px var(--display); }
+    .menu-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+    .page { padding: 56px max(20px, 5vw); max-width: 980px; }
     #crumbs i { display: inline-block; width: 1px; height: 1px; }
-    h1 { font-size: 40px; margin: 16px 0 8px; } h2, h3, h4 { font-size: 22px; margin: 28px 0 8px; } h5 { font-size: 18px; margin: 6px 0 2px; }
-    a { color: #2b2b2b; }
+    @media (max-width: 900px) {
+      .hero, .visit { grid-template-columns: 1fr; gap: 32px; }
+      .breads { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .site nav { gap: 14px; }
+      .newsletter { padding: 36px 20px; }
+    }
+    ::selection { background: var(--crust); color: #fff; }
   </style>
   <script src="/optimized/assets/app.js" defer></script>
   <link rel="icon" href="/optimized/assets/favicon.svg" type="image/svg+xml">
-  <style>.faint { color: #595959; } .bread img { height: auto; }</style>
-  <style>.bread img { height: auto; object-fit: cover; }</style>
-  <style>#specials { min-height: 90px; }</style>
+  <style>.bread img { object-fit: cover; }</style>
+  <style>.faint { color: #6e5f52; } .eyebrow, .address { color: #55604b; } .tagline { color: #93501f; }</style>
+  <style>#specials { min-height: 96px; padding: 18px 24px; }</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,54 +113,87 @@
 </head>
 <body>
   <p class="notice">Fictional demo site for a web performance class. This bakery does not exist: do not visit, call or order.</p>
+  <div class="banner">Free croissant Fridays! <span>(fictional)</span></div>
+
+  <header class="site">
+    <p class="wordmark">Boulangerie <em>Imaginaire</em></p>
+    <nav>
+      <a href="/menu">Menu</a>
+      <a href="#visit">Visit</a>
+      <a href="/members">Members</a>
+    </nav>
+  </header>
   <main>
-  <div class="banner">Free croissant Fridays! (fictional)</div>
 
-  <h1>Boulangerie Imaginaire</h1>
-  <p class="lede">A small sourdough bakery in a made-up corner of Montr&eacute;al. Every loaf starts from a
-    12-year-old sourdough starter named Gaston. We bake from 5 a.m. and sell out most days by noon.</p>
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Sourdough &middot; Montr&eacute;al &middot; open since a made-up 2014</p>
+      <h1>Boulangerie Imaginaire</h1>
+      <p class="tagline">Bread worth waking up for.</p>
+      <p class="lede">A small sourdough bakery in a made-up corner of Montr&eacute;al. Every loaf starts from a
+        12-year-old sourdough starter named Gaston. We bake from 5 a.m. and sell out most days by noon.</p>
+      <p class="actions"><a class="btn" href="#breads">See today's bread</a> <a class="btn ghost" href="#visit">Find us</a></p>
+    </div>
+    <img class="hero-img" src="/optimized/assets/img/hero-800.webp"
+         srcset="/optimized/assets/img/hero-800.webp 800w, /optimized/assets/img/hero-1600.webp 1600w"
+         sizes="(max-width: 900px) 100vw, 55vw" fetchpriority="high" width="1600" height="1067" alt="A round sourdough, a baguette, a seeded rye and a croissant on a floured wooden board">
+  </section>
 
-  <div id="specials">
-    <h2>Today's specials</h2>
+  <div id="specials" class="specials">
+    <h2 class="specials-title">Today's specials</h2>
     <p>Maple pecan loaf $9.75 &middot; Cardamom bun $4.50 &middot; Black sesame baguette $5.25</p>
   </div>
 
-  <img class="hero" src="/optimized/assets/img/hero-800.webp"
-       srcset="/optimized/assets/img/hero-800.webp 800w, /optimized/assets/img/hero-1600.webp 1600w" sizes="(max-width: 980px) 100vw, 956px"
-       fetchpriority="high" width="1600" height="1067" alt="Nine sourdough loaves on a wooden table">
+  <section id="breads" class="breads-section">
+    <!-- D-A3 (bad page): headings jump from h1 to h4 -->
+    <h2 class="section-title">Our breads</h2>
+    <p class="section-sub faint">Four loaves, baked every morning. Prices are on the board by the door.</p>
+    <div class="breads">
+      <article class="bread"><img src="/optimized/assets/img/bread-1-440.webp" loading="lazy" decoding="async" width="440" height="440" alt="Levain Classique loaf">
+        <h3 class="bread-name">Levain Classique</h3><p class="faint">Country sourdough, 48-hour ferment, crackly dark crust.</p></article>
+      <article class="bread"><img src="/optimized/assets/img/bread-2-440.webp" loading="lazy" decoding="async" width="440" height="440" alt="Croissant au beurre">
+        <h3 class="bread-name">Croissant au beurre</h3><p class="faint">Laminated with cultured butter, 27 layers, baked twice a morning.</p></article>
+      <article class="bread"><img src="/optimized/assets/img/bread-3-440.webp" loading="lazy" decoding="async" width="440" height="440" alt="Pain aux graines, seeded rye">
+        <h3 class="bread-name">Pain aux graines</h3><p class="faint">Seeded rye with flax, sunflower and pumpkin seeds.</p></article>
+      <article class="bread"><img src="/optimized/assets/img/bread-4-440.webp" loading="lazy" decoding="async" width="440" height="440" alt="Baguette tradition">
+        <h3 class="bread-name">Baguette tradition</h3><p class="faint">Out of the oven every two hours from 7 a.m.</p></article>
+    </div>
+  </section>
 
-  <h2>Our breads</h2>
-  <div class="breads">
-    <div class="bread"><img src="/optimized/assets/img/bread-1-440.webp" loading="lazy" decoding="async" width="440" height="440" alt="Levain Classique loaf"><h3>Levain Classique</h3><p class="faint">Country sourdough, 48-hour ferment, crackly dark crust.</p></div>
-    <div class="bread"><img src="/optimized/assets/img/bread-2-440.webp" loading="lazy" decoding="async" width="440" height="440" alt="Croissant au beurre"><h3>Croissant au beurre</h3><p class="faint">Laminated with cultured butter, 27 layers, baked twice a morning.</p></div>
-    <div class="bread"><img src="/optimized/assets/img/bread-3-440.webp" loading="lazy" decoding="async" width="440" height="440" alt="Pain aux graines, seeded rye"><h3>Pain aux graines</h3><p class="faint">Seeded rye with flax, sunflower and pumpkin seeds.</p></div>
-    <div class="bread"><img src="/optimized/assets/img/bread-4-440.webp" loading="lazy" decoding="async" width="440" height="440" alt="Baguette tradition"><h3>Baguette tradition</h3><p class="faint">Out of the oven every two hours from 7 a.m.</p></div>
-  </div>
+  <section id="visit" class="visit">
+    <div>
+      <table class="board-table">
+        <tr><th scope="row">Monday to Friday</th><td>6:30 to 18:00</td></tr>
+        <tr><th scope="row">Saturday</th><td>7:00 to 17:00</td></tr>
+        <tr><th scope="row">Sunday</th><td>8:00 to 14:00</td></tr>
+        <tr><th scope="row">Croissant</th><td>$3.25</td></tr>
+        <tr><th scope="row">Sourdough loaf</th><td>$8.50</td></tr>
+      </table>
+    </div>
+    <div class="visit-text">
+      <h2 class="section-title">Come early</h2>
+      <p>We bake from 5 a.m. and most loaves are gone by noon. Gaston, our starter, is fed twice a day and has
+        never once been late.</p>
+      <p class="address">123 Rue Imaginaire, Montr&eacute;al (fictional)<br>514-555-0142 &middot; hello@example.com</p>
+      <p><a href="/secret-recipes">Read Gaston's secret sourdough recipe</a></p>
+    </div>
+  </section>
 
-  <h2>Opening hours and prices</h2>
-  <table>
-    <tr><th scope="row">Monday to Friday</th><td>6:30 to 18:00</td></tr>
-    <tr><th scope="row">Saturday</th><td>7:00 to 17:00</td></tr>
-    <tr><th scope="row">Sunday</th><td>8:00 to 14:00</td></tr>
-    <tr><th scope="row">Croissant</th><td>$3.25</td></tr>
-    <tr><th scope="row">Sourdough loaf</th><td>$8.50</td></tr>
-  </table>
-
-  <h2>More</h2>
-  <p><a href="/menu">Full menu</a> &middot; <a href="/secret-recipes">Our secret sourdough recipe</a> &middot; <a href="/members">Members' prices</a></p>
-
-  <h2>Newsletter</h2>
-  <form onsubmit="return false">
-    <label for="email">Email address</label>
-    <input type="email" id="email" name="email" placeholder="email">
-    <button type="submit" aria-label="Subscribe"><span class="icon"></span></button>
-  </form>
-
+  <section class="newsletter">
+    <h2 class="section-title">Fresh from the oven, once a week</h2>
+    <form onsubmit="return false">
+      <label for="email" class="sr">Email address</label>
+      <input type="email" id="email" name="email" placeholder="your@email">
+      <button type="submit" aria-label="Subscribe"><span class="icon"></span></button>
+    </form>
+  </section>
   </main>
-  <footer class="faint">
-    Boulangerie Imaginaire (fictional) &middot; 123 Rue Imaginaire, Montr&eacute;al &middot;
-    514-555-0142 &middot; hello@example.com
+
+  <footer class="site-footer">
+    <p class="wordmark">Boulangerie <em>Imaginaire</em></p>
+    <p>A fictional bakery for a web performance class &middot; 123 Rue Imaginaire, Montr&eacute;al &middot; 514-555-0142 &middot; hello@example.com</p>
   </footer>
+  <!-- D-P7 (bad page): 3,000 empty elements get added here by app.js -->
   <div id="crumbs" aria-hidden="true"></div>
 </body>
 </html>

@@ -5,53 +5,103 @@
 <html data-fixed="lcp">
 <head>
   <meta charset="utf-8">
+  <!-- D-S1: an empty title, and no meta description -->
   <title></title>
+  <!-- D-S2: "noindex" left over from a staging copy. Search engines drop the page, and Chrome never
+       collects real-user speed data (CrUX) for a noindex page, so PageSpeed's field-data box stays empty. -->
   <meta name="robots" content="noindex, nofollow">
+  <!-- D-S3: two canonical tags that disagree -->
   <link rel="canonical" href="https://example.com/bakery">
   <link rel="canonical" href="https://example.org/boulangerie">
+  <!-- D-S4: a language code that does not exist -->
   <link rel="alternate" hreflang="xx-banana" href="/home">
+  <!-- D-A1: zooming is disabled -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- D-P2: a render-blocking stylesheet that @imports another, which @imports two more:
+       22 font files and 250 KB of unused rules before the first pixel -->
   <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- D-P3: 540 KB of JavaScript nobody uses, loaded before the page can paint -->
   <script src="/assets/js/vendor.js"></script>
+  <!-- D-P4: our own script, also blocking, and it freezes the page (see app.js) -->
   <script src="/optimized/assets/app.js"></script>
 </head>
 <body>
   <p class="notice">Fictional demo site for a web performance class. This bakery does not exist: do not visit, call or order.</p>
 
-  <h1>Boulangerie Imaginaire</h1>
-  <p class="lede">A small sourdough bakery in a made-up corner of Montr&eacute;al. Every loaf starts from a
-    12-year-old sourdough starter named Gaston. We bake from 5 a.m. and sell out most days by noon.</p>
+  <header class="site">
+    <p class="wordmark">Boulangerie <em>Imaginaire</em></p>
+    <nav>
+      <!-- D-S5: a link that is not a real link (no address a crawler can follow) -->
+      <a href="javascript:void(0)" onclick="location.href='/menu'">Menu</a>
+      <a href="#visit">Visit</a>
+      <a href="/members" tabindex="5">Members</a>
+    </nav>
+  </header>
 
-  <div id="specials"></div>
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Sourdough &middot; Montr&eacute;al &middot; open since a made-up 2014</p>
+      <h1>Boulangerie Imaginaire</h1>
+      <p class="tagline">Bread worth waking up for.</p>
+      <p class="lede">A small sourdough bakery in a made-up corner of Montr&eacute;al. Every loaf starts from a
+        12-year-old sourdough starter named Gaston. We bake from 5 a.m. and sell out most days by noon.</p>
+      <p class="actions"><a class="btn" href="#breads">See today's bread</a> <a class="btn ghost" href="#visit">Find us</a></p>
+    </div>
+    <img class="hero-img" src="/optimized/assets/img/hero-800.webp"
+         srcset="/optimized/assets/img/hero-800.webp 800w, /optimized/assets/img/hero-1600.webp 1600w"
+         sizes="(max-width: 900px) 100vw, 55vw" fetchpriority="high">
+  </section>
 
-  <img class="hero" src="/optimized/assets/img/hero-800.webp"
-       srcset="/optimized/assets/img/hero-800.webp 800w, /optimized/assets/img/hero-1600.webp 1600w" sizes="(max-width: 980px) 100vw, 956px"
-       fetchpriority="high">
+  <!-- D-C2: today's specials arrive later through JavaScript and push everything below them down.
+       D-R2: a reader that does not run JavaScript (most AI crawlers, Claude Code's fetch) never sees them. -->
+  <div id="specials" class="specials"></div>
 
-  <h4>Our breads</h4>
-  <div class="breads">
-    <div class="bread"><img src="/optimized/assets/img/bread-1-440.webp" loading="lazy" decoding="async"><h5>Levain Classique</h5><p class="faint">Country sourdough, 48-hour ferment, crackly dark crust.</p></div>
-    <div class="bread"><img src="/optimized/assets/img/bread-2-440.webp" loading="lazy" decoding="async"><h5>Croissant au beurre</h5><p class="faint">Laminated with cultured butter, 27 layers, baked twice a morning.</p></div>
-    <div class="bread"><img src="/optimized/assets/img/bread-3-440.webp" loading="lazy" decoding="async"><h5>Pain aux graines</h5><p class="faint">Seeded rye with flax, sunflower and pumpkin seeds.</p></div>
-    <div class="bread"><img src="/optimized/assets/img/bread-4-440.webp" loading="lazy" decoding="async"><h5>Baguette tradition</h5><p class="faint">Out of the oven every two hours from 7 a.m.</p></div>
-  </div>
+  <section id="breads" class="breads-section">
+    <!-- D-A3 (bad page): headings jump from h1 to h4 -->
+    <h4 class="section-title">Our breads</h4>
+    <p class="section-sub faint">Four loaves, baked every morning. Prices are on the board by the door.</p>
+    <div class="breads">
+      <article class="bread"><img src="/optimized/assets/img/bread-1-440.webp" loading="lazy" decoding="async">
+        <h5 class="bread-name">Levain Classique</h5><p class="faint">Country sourdough, 48-hour ferment, crackly dark crust.</p></article>
+      <article class="bread"><img src="/optimized/assets/img/bread-2-440.webp" loading="lazy" decoding="async">
+        <h5 class="bread-name">Croissant au beurre</h5><p class="faint">Laminated with cultured butter, 27 layers, baked twice a morning.</p></article>
+      <article class="bread"><img src="/optimized/assets/img/bread-3-440.webp" loading="lazy" decoding="async">
+        <h5 class="bread-name">Pain aux graines</h5><p class="faint">Seeded rye with flax, sunflower and pumpkin seeds.</p></article>
+      <article class="bread"><img src="/optimized/assets/img/bread-4-440.webp" loading="lazy" decoding="async">
+        <h5 class="bread-name">Baguette tradition</h5><p class="faint">Out of the oven every two hours from 7 a.m.</p></article>
+    </div>
+  </section>
 
-  <h4>Opening hours and prices</h4>
-  <img class="board" src="/optimized/assets/img/hours-board-900.webp" loading="lazy">
+  <section id="visit" class="visit">
+    <div>
+      <!-- D-R1: the hours and two prices exist ONLY inside this picture.
+           Search engines, screen readers and AI tools that read text cannot see them. -->
+      <img class="board" src="/optimized/assets/img/hours-board-900.webp" loading="lazy">
+    </div>
+    <div class="visit-text">
+      <h4 class="section-title">Come early</h4>
+      <p>We bake from 5 a.m. and most loaves are gone by noon. Gaston, our starter, is fed twice a day and has
+        never once been late.</p>
+      <p class="address">123 Rue Imaginaire, Montr&eacute;al (fictional)<br>514-555-0142 &middot; hello@example.com</p>
+      <!-- D-S6: link text that says nothing -->
+      <p>Curious how Gaston works? <a href="/secret-recipes">click here</a></p>
+    </div>
+  </section>
 
-  <h4>More</h4>
-  <p><a href="javascript:void(0)" onclick="location.href='/menu'">Full menu</a> &middot; <a href="/secret-recipes">click here</a> for our recipes &middot; <a href="/members" tabindex="5">Members</a></p>
+  <section class="newsletter">
+    <h4 class="section-title">Fresh from the oven, once a week</h4>
+    <form onsubmit="return false">
+      <!-- D-A4: no label. D-B4: pasting is blocked. D-B5: no id or name. D-A5: the button has no name. -->
+      <input type="email" onpaste="return false" placeholder="your@email">
+      <button type="submit"><span class="icon"></span></button>
+    </form>
+  </section>
 
-  <h4>Newsletter</h4>
-  <form onsubmit="return false">
-    <input type="email" onpaste="return false" placeholder="email">
-    <button type="submit"><span class="icon"></span></button>
-  </form>
-
-  <footer class="faint">
-    Boulangerie Imaginaire (fictional) &middot; 123 Rue Imaginaire, Montr&eacute;al &middot;
-    514-555-0142 &middot; hello@example.com
+  <footer class="site-footer">
+    <p class="wordmark">Boulangerie <em>Imaginaire</em></p>
+    <p>A fictional bakery for a web performance class &middot; 123 Rue Imaginaire, Montr&eacute;al &middot; 514-555-0142 &middot; hello@example.com</p>
   </footer>
+  <!-- D-P7 (bad page): 3,000 empty elements get added here by app.js -->
   <div id="crumbs" aria-hidden="true"></div>
 </body>
 </html>

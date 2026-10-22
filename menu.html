@@ -1,28 +1,35 @@
-<!-- BROKEN ON PURPOSE: same mistakes as home.html. -->
+<!-- BROKEN ON PURPOSE: the same mistakes as /home (no doctype, no lang, blocking CSS chain and scripts, noindex). -->
 <html>
 <head>
   <meta charset="utf-8">
   <title>menu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="robots" content="noindex, nofollow">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="assets/js/vendor.js"></script>
-  <script src="assets/js/app.js"></script>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/vendor.js"></script>
+  <script src="/assets/js/app.js"></script>
 </head>
 <body>
   <p class="notice">Fictional demo site for a web performance class. This bakery does not exist: do not visit, call or order.</p>
-  <h1>Menu</h1>
-  <div id="specials"></div>
-  <!-- D-R2: every price on this page is written in by app.js after the page loads.
-       The HTML a crawler downloads only says "loading". -->
-  <table class="menu">
-    <tr><td>Levain Classique</td><td class="faint">Country sourdough, 48-hour ferment</td><td data-price="levain">loading</td></tr>
-    <tr><td>Croissant au beurre</td><td class="faint">Cultured butter, 27 layers</td><td data-price="croissant">loading</td></tr>
-    <tr><td>Pain aux graines</td><td class="faint">Seeded rye</td><td data-price="graines">loading</td></tr>
-    <tr><td>Baguette tradition</td><td class="faint">Every two hours from 7 a.m.</td><td data-price="baguette">loading</td></tr>
-  </table>
-  <img class="hero" src="assets/img/bread-2.png" loading="lazy">
-  <p><a href="javascript:history.back()">click here</a> to go back</p>
+  <header class="site">
+    <p class="wordmark">Boulangerie <em>Imaginaire</em></p>
+    <nav><a href="/home">Home</a> <a href="/home#visit">Visit</a> <a href="/members">Members</a></nav>
+  </header>
+  <div class="page">
+    <h1>Menu</h1>
+    <p class="tagline">Baked this morning, gone by noon.</p>
+    <div id="specials" class="specials"></div>
+    <!-- D-R2: every price on this page is written in by app.js after the page loads.
+         The HTML a crawler downloads only says "loading". -->
+    <table class="menu-table">
+      <tr><td>Levain Classique</td><td class="faint">Country sourdough, 48-hour ferment</td><td data-price="levain">loading</td></tr>
+      <tr><td>Croissant au beurre</td><td class="faint">Cultured butter, 27 layers</td><td data-price="croissant">loading</td></tr>
+      <tr><td>Pain aux graines</td><td class="faint">Seeded rye with flax, sunflower and pumpkin</td><td data-price="graines">loading</td></tr>
+      <tr><td>Baguette tradition</td><td class="faint">Every two hours from 7 a.m.</td><td data-price="baguette">loading</td></tr>
+    </table>
+    <p><a href="javascript:history.back()">click here</a> to go back</p>
+  </div>
+  <footer class="site-footer"><p class="wordmark">Boulangerie <em>Imaginaire</em></p><p>A fictional bakery for a web performance class.</p></footer>
   <div id="crumbs" aria-hidden="true"></div>
 </body>
 </html>
